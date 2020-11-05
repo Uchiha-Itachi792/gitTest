@@ -1,0 +1,21 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    #不将自己注册进EurekaServer。
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+#由于我们设置了等待方法，所以需要设置设置Feign客户端的超时等待时间！
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+
+#由于配置的是消费端，所以OpenFeign想要使用Hystrix的熔断机制必须配置开启
+feign:
+  hystrix:
+    enabled: true
